@@ -40,6 +40,8 @@ const (
 	RequiredCredentialAnthropic
 	// RequiredCredentialCohere is the bit flag for the Cohere API key.
 	RequiredCredentialCohere
+	// RequiredCredentialGCPVertexAI is the bit flag for the GCP Vertex AI access token.
+	RequiredCredentialGCPVertexAI
 )
 
 // CredentialsContext holds the context for the credentials used in the tests.
@@ -68,6 +70,14 @@ type CredentialsContext struct {
 	SambaNovaAPIKey string
 	// DeepInfraAPIKey is the API key for DeepInfra API. https://deepinfra.com/docs/openai_api
 	DeepInfraAPIKey string
+	// GCPVertexAIValid is true if the GCP Vertex AI access token is set.
+	GCPVertexAIValid bool
+	// GCPVertexAIAccessToken is the OAuth2 access token for GCP Vertex AI. https://cloud.google.com/vertex-ai/docs/reference/rest
+	GCPVertexAIAccessToken string
+	// GCPVertexAIProject is the GCP project ID for Vertex AI. This defaults to "dummy-gcp-project" if not set.
+	GCPVertexAIProject string
+	// GCPVertexAIRegion is the GCP region for Vertex AI. This defaults to "us-central1" if not set.
+	GCPVertexAIRegion string
 }
 
 // MaybeSkip skips the test if the required credentials are not set.
@@ -101,6 +111,9 @@ func (c CredentialsContext) MaybeSkip(t testing.TB, required RequiredCredential)
 	}
 	if required&RequiredCredentialCohere != 0 && !c.CohereValid {
 		t.Skip("skipping test as Cohere API key is not set in TEST_COHERE_API_KEY")
+	}
+	if required&RequiredCredentialGCPVertexAI != 0 && !c.GCPVertexAIValid {
+		t.Skip("skipping test as GCP Vertex AI access token is not set in TEST_GCP_VERTEXAI_ACCESS_TOKEN")
 	}
 }
 
@@ -167,5 +180,12 @@ func RequireNewCredentialsContext() (ctx CredentialsContext) {
 	cohereAPIKeyEnv := os.Getenv("TEST_COHERE_API_KEY")
 	ctx.CohereValid = cohereAPIKeyEnv != ""
 	ctx.CohereAPIKey = cmp.Or(cohereAPIKeyEnv, "dummy-cohere-api-key")
+
+	// Set up credential for GCP Vertex AI.
+	gcpVertexAIAccessTokenEnv := os.Getenv("TEST_GCP_VERTEXAI_ACCESS_TOKEN")
+	ctx.GCPVertexAIValid = gcpVertexAIAccessTokenEnv != ""
+	ctx.GCPVertexAIAccessToken = cmp.Or(gcpVertexAIAccessTokenEnv, "dummy-gcp-vertexai-access-token")
+	ctx.GCPVertexAIProject = cmp.Or(os.Getenv("TEST_GCP_VERTEXAI_PROJECT"), "dummy-gcp-project")
+	ctx.GCPVertexAIRegion = cmp.Or(os.Getenv("TEST_GCP_VERTEXAI_REGION"), "us-central1")
 	return
 }

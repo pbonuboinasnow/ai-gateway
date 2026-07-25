@@ -22,11 +22,13 @@ const (
 	// OpenAIModelName is the OpenAI chat completion model.
 	OpenAIModelName = "gpt-4o-mini"
 	// AWSBedrockModelName is the AWS Bedrock chat completion model.
-	AWSBedrockModelName = "us.amazon.nova-micro-v1:0"
+	AWSBedrockModelName = "arn:aws:bedrock:us-west-2:<my-account>:application-inference-profile/<some-value>"
 	// AzureOpenAIModelName is the Azure OpenAI chat completion model.
-	AzureOpenAIModelName = "o1"
+	AzureOpenAIModelName = "gpt-4.1"
 	// GeminiModelName is the Gemini chat completion model.
 	GeminiModelName = "gemini-3.1-flash-lite"
+	// GCPVertexAIModelName is the GCP Vertex AI Gemini chat completion model.
+	GCPVertexAIModelName = "gemini-2.5-flash"
 	// GroqModelName is the Groq chat completion model.
 	GroqModelName = "llama-3.1-8b-instant"
 	// GrokModelName is the Grok (xAI) chat completion model.
@@ -55,8 +57,8 @@ const (
 	AnthropicModelName = "claude-sonnet-4-5"
 	// AWSBedrockAnthropicGlobalModelName is the Claude model served by AWS
 	// Bedrock via the global cross-region inference profile.
-	AWSBedrockAnthropicGlobalModelName = "global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+	AWSBedrockAnthropicGlobalModelName = "arn:aws:bedrock:us-west-2:<my-account>:application-inference-profile/<some-value>"
 	// AWSBedrockAnthropicUSModelName is the Claude model served by AWS Bedrock
 	// via the US cross-region inference profile.
-	AWSBedrockAnthropicUSModelName = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+	AWSBedrockAnthropicUSModelName = "arn:aws:bedrock:us-west-2:<my-account>:application-inference-profile/<some-value>"
 )

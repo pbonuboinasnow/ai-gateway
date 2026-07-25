@@ -56,11 +56,11 @@ func TestWithRealProviders(t *testing.T) {
 			}},
 			{Name: "aws-bedrock", Schema: awsBedrockSchema, Auth: &filterapi.BackendAuth{AWSAuth: &filterapi.AWSAuth{
 				CredentialFileLiteral: cc.AWSFileLiteral,
-				Region:                "us-east-1",
+				Region:                "us-west-2",
 			}}},
 			{Name: "anthropic-aws-bedrock", Schema: awsAnthropicSchema, Auth: &filterapi.BackendAuth{AWSAuth: &filterapi.AWSAuth{
 				CredentialFileLiteral: cc.AWSFileLiteral,
-				Region:                "us-east-1",
+				Region:                "us-west-2",
 			}}},
 			{Name: "azure-openai", Schema: azureOpenAISchema, Auth: &filterapi.BackendAuth{
 				AzureAuth: &filterapi.AzureAuth{AccessToken: cc.AzureAccessToken},
@@ -68,6 +68,11 @@ func TestWithRealProviders(t *testing.T) {
 			{Name: "gemini", Schema: geminiSchema, Auth: &filterapi.BackendAuth{
 				APIKey: &filterapi.APIKeyAuth{Key: cc.GeminiAPIKey},
 			}},
+			{Name: "gcp-vertexai", Schema: gcpVertexAISchema, Auth: &filterapi.BackendAuth{GCPAuth: &filterapi.GCPAuth{
+				AccessToken: cc.GCPVertexAIAccessToken,
+				Region:      cc.GCPVertexAIRegion,
+				ProjectName: cc.GCPVertexAIProject,
+			}}},
 			{Name: "groq", Schema: groqSchema, Auth: &filterapi.BackendAuth{
 				APIKey: &filterapi.APIKeyAuth{Key: cc.GroqAPIKey},
 			}},
@@ -107,6 +112,7 @@ func TestWithRealProviders(t *testing.T) {
 				{name: "aws-bedrock", modelName: internaltesting.AWSBedrockModelName, required: internaltesting.RequiredCredentialAWS},
 				{name: "azure-openai", modelName: internaltesting.AzureOpenAIModelName, required: internaltesting.RequiredCredentialAzure},
 				{name: "gemini", modelName: internaltesting.GeminiModelName, required: internaltesting.RequiredCredentialGemini},
+				{name: "gcp-vertexai", modelName: internaltesting.GCPVertexAIModelName, required: internaltesting.RequiredCredentialGCPVertexAI},
 				{name: "groq", modelName: internaltesting.GroqModelName, required: internaltesting.RequiredCredentialGroq},
 				{name: "grok", modelName: internaltesting.GrokModelName, required: internaltesting.RequiredCredentialGrok},
 				{name: "sambanova", modelName: internaltesting.SambaNovaModelName, required: internaltesting.RequiredCredentialSambaNova},
